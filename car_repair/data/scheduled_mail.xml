@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Define a new mail template for the reminder -->
+        <record id="send_mail_car_schedule" model="mail.template">
+            <field name="name">Car Repair Reminder</field>
+            <field name="model_id" ref="model_detail_model"/>
+            <field name="subject">Reminder for Car Repair: {{ object.company_id.name }}</field>
+            
+            <field name="email_to">{{ object.email }}</field>
+            <field name="report_template_ids" eval="[(4, ref('car_repair.action_report_car_repair'))]"/>
+            <field name="description">Car repair reminder email template</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0; padding: 0; font-size: 13px;">
+                    <p style="margin: 0; padding: 0;">
+                        Hello, <span t-field="object.client_name"></span><br/><br/>
+                        This is a reminder that your car repair at <b><span t-field="object.company_id.name"></span></b> was completed three months ago.
+                    </p>
+                </div>
+            </field>
+        </record>
+       
+    </data>
+</odoo>

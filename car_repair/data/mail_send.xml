@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <record id="send_mail_car" model="mail.template">
+            <field name="name">Car Repair</field>
+            <field name="model_id" ref="car_repair.model_detail_model" />
+            <field name="subject">Quotation for Car Repair: {{ object.company_id.name }}</field>
+            <field name="email_to">{{object.email}}</field>
+            <field name="report_template_ids" eval="[(4,ref('car_repair.action_report_car_repair'))]"/>   
+            <field name="description">Car related mail</field>
+            
+            <field name="body_html" type="html">
+                <div style="margin: 0; padding: 0; font-size: 13px;">
+                    <p style="margin: 0; padding: 0;">
+                        Hello, <span t-field="object.client_name"></span><br/><br/>
+                        Here is the quotation for your car repair:<br/>
+                        Car Detail: <span t-field="object.detail_id"></span><br/>
+                        Total Amount: <span t-field="object.car_info_ids.total"></span><br/><br/>
+                        It's time for your car's maintenance check-up!<br/>
+                        Schedule your appointment today for hassle-free service.<br/>
+                        Reply to this email or call to book.<br/><br/>
+                        Regards,<br/>
+                        <b><span t-field="object.company_id.name"></span></b>
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
+</odoo>

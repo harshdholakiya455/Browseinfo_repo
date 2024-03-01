@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_report_car_repair_filter" model="ir.actions.report">
+            <field name="name">Print Filter</field>
+            <field name="model">car.report.wizard</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">car_repair.report_car_repair_filter</field>
+            <field name="report_file">car_repair.report_car_repair_filter</field>
+            <field name="binding_model_id" ref="model_car_report_wizard" />
+            <field name="binding_type">report</field>
+        </record>
+
+        <template id="report_car_repair_filter">
+            <t t-call="web.basic_layout">
+                <div class="page">
+                    <t t-foreach="docs" t-as="pt">
+                        <div class="oe_structure" style="font-size:10px; font-family:TimeNewRoman;">
+                            <center>
+                                <h2>Inventory Car Report</h2>
+                            </center>
+                            <t t-if="pt">
+                                <table class="table table-condensed" style="border:black;">
+                                    <tr style="background-color:Grey;">
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                    </tr>
+                                    <tr style="height:20px;text-align:center;">
+                                        <td>
+                                            <span t-if="pt.start_date" t-field="pt.start_date" />
+                                            <span t-if="not pt.start_date">N/A</span>
+                                        </td>
+                                        <td>
+                                            <span t-if="pt.end_date" t-field="pt.end_date" />
+                                            <span t-if="not pt.end_date">N/A</span>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <t t-foreach="pt.detail_ids" t-as="car">
+                                    <table class="table table-condensed"
+                                        style="border:black; width: 100%;">
+                                        <tr style="background-color:Grey;height:20px;">
+                                            <th scope="col">User</th>
+                                            <th scope="col">Email</th>
+                                            <th scope="col">Car Name</th>
+                                            <th scope="col">License Plate</th>
+                                            <th scope="col">Car Model</th>
+                                            <th scope="col">Oil Charge</th>
+                                            <th scope="col">Washing Charge</th>
+                                            <th scope="col">Service Charge</th>
+                                            <th scope="col">Total</th>
+                                        </tr>
+                                        <t t-set="total_cost" t-value="0" />
+                                        <t t-foreach="car.car_info_ids" t-as="car_sub">
+                                            <tr style="height:20px;text-align:center;">
+                                                <td>
+                                                    <span t-field="car.client_name.name" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="car.email" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="car_sub.car_name" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="car_sub.license_plate" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="car_sub.car_model" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="car_sub.car_oil_price" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="car_sub.car_washing_charge" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="car_sub.car_service_charge" />
+                                                </td>
+                                                <td>
+                                                    <span t-field="car_sub.total" />
+                                                    <t t-set="total_cost"
+                                                        t-value="total_cost + car_sub.total" />
+                                                </td>
+                                            </tr>
+                                        </t>
+                                        <tr>
+                                            <td colspan="8" class="text-center">Total Cost</td>
+                                            <td class="text-center" style="color:green">
+                                                <t t-esc="total_cost" />
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <p>No patient data found.</p>
+                            </t>
+                        </div>
+                    </t>
+                </div>
+            </t>
+        </template>
+
+    </data>
+</odoo>

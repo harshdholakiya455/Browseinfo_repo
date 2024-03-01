@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+   <!-- Define a new view to extend the res.partner form view -->
+   <record id="view_partner_form" model="ir.ui.view">
+       <field name="name">res.partner.view.form.Email.redirect</field>
+       <field name="model">detail.model</field>
+       <field name="inherit_id" ref="car_detail_view_form"/>
+       <field name="arch" type="xml">
+   
+       </field>
+   </record>
+</odoo>

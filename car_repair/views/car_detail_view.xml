@@ -1,0 +1,352 @@
+<odoo>
+    <data>
+
+
+        <!-- Define your Tree view -->
+        <record id="car_detail_view_tree" model="ir.ui.view">
+            <field name="name">detail.tree.view</field>
+            <field name="model">detail.model</field>
+            <field name="arch" type="xml">
+                <tree string="Car Details">
+                    <field name="detail_id" />
+                    <field name="detail_subject" />
+                    <field name='detail_assignedto' />
+                    <field name='detail_priority' widget="priority" />
+                    <field name='status' widget="badge" decoration-success="status=='done'"
+                        decoration-info="status=='in_diagnosis'"
+                        decoration-warning="status=='quotation_sent'"
+                        decoration-primary="status=='quotation_approve'"
+                        decoration-danger="status=='work_in_progress'" />
+
+                </tree>
+            </field>
+        </record>
+
+        <!-- Define your Form view -->
+        <record
+            id="car_detail_view_form" model="ir.ui.view">
+            <field name="name">detail.form.view</field>
+            <field name="model">detail.model</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="Create_Car_Diagnosis" string="Create Car Diagnosis"
+                            type="object" class="oe_highlight"></button>
+                        <button name="Print_Receipt" string="Print Receipt" type="object"></button>
+                        <button name="action_send_email" string="Email Send" class="oe_highlight"
+                            type="object"></button>
+
+                        <button name="Print_report" string="Print Report" type="object"></button>
+                        <field name="status" widget="statusbar"></field>
+                        <button name="o_diagnosis" string="Diagnosis" type="object"
+                            class="oe_highlight"
+                            invisible="status in ('in_diagnosis','quotation_sent','quotation_approve','work_in_progress','done')"></button>
+                        <button name="o_quotation_sent" string="Quotation Sent" type="object"
+                            class="oe_highlight"
+                            invisible="status in ('quotation_sent','received','quotation_approve','work_in_progress','done')"></button>
+                        <button name="o_quotation_approve" string="Quotation Approve" type="object"
+                            class="oe_highlight"
+                            invisible="status in ('quotation_approve','received','in_diagnosis','work_in_progress','done')"></button>
+                        <button name="o_work_in_progress" string="Work In Progress" type="object"
+                            class="oe_highlight"
+                            invisible="status in ('in_diagnosis','quotation_sent','received','work_in_progress','done')"></button>
+                        <button name="o_done" string="Done" type="object" class="oe_highlight"
+                            invisible="status in ('in_diagnosis','quotation_sent','quotation_approve','received','done')"></button>
+
+                    </header>
+                    <sheet>
+
+                        <h1>
+                            <field name="detail_id" />
+                        </h1>
+
+                        <group>
+                            <group>
+                                <field name="detail_assignedto" />
+                                <field name="detail_subject" />
+                                <field name="company_id" />
+
+
+                            </group>
+                            <group>
+                                <field name='detail_priority' widget="priority" />
+                                <field name='start_date' />
+                                <field name='end_date' />
+
+                                <field name='detail_image' widget="image" class="oe_avatar"
+                                    style="float:left" />
+                            </group>
+
+                        </group>
+
+                        <notebook>
+                            <page string="Genral">
+                                <sheet>
+                                    <h6>Client Info</h6>
+                                    <hr></hr>
+                                    <group>
+                                        <group>
+
+                                            <field name="client_name" />
+                                            <span class="o_form_label o_td_label"
+                                                name="client_address">
+                                                <b>Client</b>
+                                            </span>
+                                            <div class="o_address_format">
+                                                <field name="street" placeholder="Street..."
+                                                    class="o_address_street" />
+                                                <field name="street2" placeholder="Street 2..."
+                                                    class="o_address_street" />
+                                                <field name="city" placeholder="City"
+                                                    class="o_address_city" />
+                                                <field name="zip" placeholder="ZIP"
+                                                    class="o_address_zip" />
+                                            </div>
+
+
+                                        </group>
+                                        <group>
+                                            <field name='phone' widget="phone" />
+                                            <field name='mobile' widget="phone" />
+                                            <field name='email' widget="email" />
+
+                                        </group>
+                                    </group>
+                                    <p>
+                                        <b>Car Info</b>
+                                    </p>
+                                    <field name="car_info_ids" widget="one2many"></field>
+
+                                </sheet>
+                            </page>
+                            <page string="Service Repair Checklist"></page>
+                            <page string="Review and Ratings"></page>
+                            <page string="Timesheet"></page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"></field>
+                        <field name="activity_ids" widget="mail_activity"></field>
+                        <field name="message_ids" widget="mail_thread"></field>
+                    </div>
+
+                </form>
+            </field>
+        </record>
+
+        <!-- Define your kanban view -->
+        <record
+            id="detail_kanban_view" model="ir.ui.view">
+            <field name="name">detail.kanban.view</field>
+            <field name="model">detail.model</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="o_kanban_image">
+                                    <field name="detail_image" nolabel="1" widget="image"
+                                        style="height:100px;width:100px" />
+                                </div>
+                                <div class="oe_kanban_body">
+                                    <div t-attf-class="oe_kanban_record_title"
+                                        style="margin-left:40px">
+                                        <div t-attf-class="text-danger"> ​ <h3>
+                                                <b>
+                                                    <field name="client_name" />
+                                                </b>
+                                            </h3>
+                                        </div>
+                                        <i class='fa fa-id-car-o' title="ID" />
+                                        <b>
+                                            <field name="detail_subject" />
+                                        </b>
+                                        <br />
+                                        <i class='fa fa-id-car-o' title="ID" />
+                                        <field name="detail_priority" widget="priority" />
+                                        <br />
+                                        <i class="fa fa-fw me-2 fa-envelope text-primary"
+                                            title="Email" />
+                                        <field name="email" />
+                                        <br />
+                                        <i class='fa fa-id-card-o' title="ID" />
+                                        <field name="phone" />
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <!-- Define your calendar view -->
+        <record
+            id="detail_view_task_calendar" model="ir.ui.view">
+            <field name="name">detail.calendar.view</field>
+            <field name="model">detail.model</field>
+            <field name="arch" type="xml">
+                <calendar date_start="start_date" string="Tasks" mode="month" color="detail_id">
+
+                    <field name="client_name" />
+                    <field name="detail_subject" />
+                    <field name="email" />
+                    <field name="phone" />
+                    <field name="start_date" />
+                </calendar>
+            </field>
+        </record>
+
+        <!-- Define your search view -->
+        <record
+            id="car_data_search" model="ir.ui.view">
+            <field name="name">detail.model.search</field>
+            <field name="model">detail.model</field>
+            <field name="arch" type="xml">
+                <search>
+                    <field name="detail_id" />
+                    <field name="detail_subject" />
+                    <field name='detail_assignedto' />
+                    <field name='detail_priority' widget="priority" />
+                    <field name='status' />
+                    <field name="client_name" />
+                    <field name="detail_subject" />
+                    <field name="phone" />
+                    <field name="mobile" />
+                    <field name="email" />
+                    <field name="start_date" />
+                    <field name="detail_priority" />
+
+                    <separator />
+                    <filter name="received" string="Received" domain="[('status', '=', 'received')]" />
+                    <filter name="in_diagnosis" string="In Diagnosis"
+                        domain="[('status', '=', 'in_diagnosis')]" />
+                    <filter name="quotation_sent" string="Quotation Sent"
+                        domain="[('status', '=', 'quotation_sent')]" />
+                    <filter name="quotation_approve" string="Quotation Approve"
+                        domain="[('status', '=', 'quotation_approve')]" />
+                    <filter name="work_in_progress" string="Work In Progress"
+                        domain="[('status', '=', 'work_in_progress')]" />
+                    <filter name="done" string="Done" domain="[('status', '=', 'done')]" />
+
+                    <group string="Group By" expand="0">
+                        <filter name="status" string="Status" context="{'group_by': 'status'}" />
+                    </group>
+
+                </search>
+            </field>
+        </record>
+
+        <!-- Define your activity view -->
+        <record
+            id="view_activity_example" model="ir.ui.view">
+            <field name="name">detail.activity</field>
+            <field name="model">detail.model</field>
+            <field name="arch" type="xml">
+                <activity string="Applicants">
+                    <templates>
+                        <div t-name="activity-box">
+                            <div>
+                                <field name="detail_id" />
+                            </div>
+                        </div>
+                    </templates>
+                </activity>
+            </field>
+        </record>
+
+
+        <!-- Company-restricted Records -->
+        <record
+            model="ir.rule" id="record_restricted_company_rule">
+            <field name="name">Restricted Record: multi-company</field>
+            <field name="model_id" ref="model_detail_model" />
+            <field name="global" eval="True" />
+            <field name="domain_force">
+                [('company_id', 'in', company_ids)]
+            </field>
+        </record>
+        #main model <record id="detail_action" model="ir.actions.act_window">
+            <field name="name">Car Repair</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">detail.model</field>
+            <field name="view_mode">tree,kanban,calendar,search,form,activity</field>
+            <field name="context">{'search_default_done':1}</field>
+        </record>
+
+         
+        <data>
+            <record id="seq_car_details_model" model="ir.sequence">
+                <field name="name">Car Detail Sequence</field>
+                <field name="code">detail.model</field>
+                <field name="prefix">car</field>
+                <field name="padding">4</field>
+                <field name="company_id" eval="False" />
+            </record>
+        </data>
+
+
+        <record
+            id="worker_action" model="ir.actions.act_window">
+            <field name="name">worker.model</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">worker.model</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_done':1}</field>
+        </record>
+        <record
+            id="model_worker_view_tree" model="ir.ui.view">
+            <field name="name">worker.model.view.tree</field>
+            <field name="model">worker.model</field>
+            <field name="arch" type="xml">
+                <tree string="Worker">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+        <record
+            id="client_action" model="ir.actions.act_window">
+            <field name="name">client.model</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">client.model</field>
+            <field name="view_mode">tree</field>
+            <field name="context">{'search_default_done':1}</field>
+        </record>
+
+        <record
+            id="model_client_view_tree" model="ir.ui.view">
+            <field name="name">client.model.view.tree</field>
+            <field name="model">client.model</field>
+            <field name="arch" type="xml">
+                <tree string="Clientsss">
+                    <field name="name"></field>
+                </tree>
+            </field>
+        </record>
+
+       
+
+        <menuitem
+            id="car_repair_root" name="Car Repair" />
+        <menuitem id="menu_detail_menu"
+            name="Car Repair" parent="car_repair_root" />
+
+        <menuitem id="detail_view_id"
+            name="Vehicle Repair" action="detail_action"
+            parent="car_repair_root" />
+
+        <menuitem id="billing_view" name="Worker"
+            action="worker_action"
+            parent="car_repair_root" />
+
+        <menuitem id="dashboard_view" name="Client"
+            action="client_action"
+            parent="car_repair_root" />
+
+
+    </data>
+</odoo>
