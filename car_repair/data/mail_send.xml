@@ -15,7 +15,7 @@
                         Hello, <span t-field="object.client_name"></span><br/><br/>
                         Here is the quotation for your car repair:<br/>
                         Car Detail: <span t-field="object.detail_id"></span><br/>
-                        Total Amount: <span t-field="object.car_info_ids.total"></span><br/><br/>
+                        Total Amount: <span t-field="object.main_total"></span><br/><br/>
                         It's time for your car's maintenance check-up!<br/>
                         Schedule your appointment today for hassle-free service.<br/>
                         Reply to this email or call to book.<br/><br/>

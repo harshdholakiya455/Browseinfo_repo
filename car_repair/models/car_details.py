@@ -48,6 +48,16 @@ class Detailsmodel(models.Model):
     car_info_ids = fields.One2many('car.model', 'form_id', string='Car Info')
     check_button = fields.Boolean(string="Boolean")
     code = fields.Char(string="Code")
+    main_total = fields.Float(string="Main Total" , compute="_compute_main_total")
+    
+    
+    
+
+    @api.depends('car_info_ids.total')
+    def _compute_main_total(self):
+        for record in self:
+            total = sum(record.car_info_ids.mapped('total'))
+            record.main_total = total
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -133,10 +143,8 @@ class Detailsmodel(models.Model):
             'context': ctx,
         }
 
-
     @api.model
     def action_send_reminder_email(self):
-       
         end_date_three_month = datetime.now()- timedelta(days=90)
         user_company_id = self.env.user.company_id.id
 

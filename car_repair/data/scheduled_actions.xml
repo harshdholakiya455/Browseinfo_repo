@@ -6,10 +6,10 @@
             <field name="name">Car Repair Reminder Mail</field>
             <field name="model_id" ref="model_detail_model"/>
             <field name="state">code</field>
-            <!-- <field name="code">model.action_send_reminder_email()</field> -->
+            <field name="code">model.action_send_reminder_email()</field>
             <field name="user_id" ref="base.user_root"/>
             <field name="interval_number">1</field>
-            <field name="nextcall" eval="DateTime.now().replace(hour=0, minute=1, second=0)"/>
+            <!-- <field name="nextcall" eval="DateTime.now().replace(hour=0, minute=1, second=0)"/> -->
             <field name="interval_type">minutes</field>
             <field name="numbercall">-1</field>
         </record>
@@ -17,4 +17,4 @@
 
 </odoo>
  
-       
+    
