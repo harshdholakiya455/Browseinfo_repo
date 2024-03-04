@@ -48,10 +48,8 @@ class Detailsmodel(models.Model):
     car_info_ids = fields.One2many('car.model', 'form_id', string='Car Info')
     check_button = fields.Boolean(string="Boolean")
     code = fields.Char(string="Code")
-    main_total = fields.Float(string="Main Total" , compute="_compute_main_total")
-    
-    
-    
+    main_total = fields.Float(
+        string="Main Total", compute="_compute_main_total")
 
     @api.depends('car_info_ids.total')
     def _compute_main_total(self):
@@ -65,8 +63,8 @@ class Detailsmodel(models.Model):
             if vals.get('detail_id', _('New')) == _('New'):
                 vals['detail_id'] = self.env['ir.sequence'].next_by_code(
                     'detail.model') or _('New')
-            res = super(Detailsmodel, self).create(vals)
-            return res
+        res = super(Detailsmodel, self).create(vals)
+        return res
 
     def Create_Car_Diagnosis(self):
         print("Car Diagnosis Create")
@@ -145,18 +143,15 @@ class Detailsmodel(models.Model):
 
     @api.model
     def action_send_reminder_email(self):
-        end_date_three_month = datetime.now()- timedelta(days=90)
+        end_date_three_month = datetime.now() - timedelta(days=90)
         user_company_id = self.env.user.company_id.id
-
-        print("==============================",end_date_three_month)
         records_to_remind = self.env['detail.model'].search([
             ('company_id', '=', user_company_id),
             ('status', '=', 'done'),
             ('end_date', '=', end_date_three_month),
-           
         ])
-        print("==============================",records_to_remind)
         for record in records_to_remind:
             template_id = self.env.ref('car_repair.send_mail_car_schedule').id
             template = self.env['mail.template'].browse(template_id)
-            template.with_context(object=record).send_mail(record.id, force_send=True)
+            template.with_context(object=record).send_mail(
+                record.id, force_send=True)

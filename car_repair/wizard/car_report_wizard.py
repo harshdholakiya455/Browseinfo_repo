@@ -94,7 +94,7 @@ class CarReportWizard(models.TransientModel):
         end_date_value_cell.alignment = Alignment(horizontal='center')
 
         # Define column headers and their widths for main data table
-        main_headers = [("User", 10), ("Email", 20), ("Car Name", 12), ("License Plate", 15), ("Car Model", 14),
+        main_headers = [("User", 15), ("Email", 25), ("Car Name", 12), ("License Plate", 15), ("Car Model", 14),
                         ("Oil Charge", 15), ("Washing Charge", 17), ("Service Charge", 17), ("Total", 13)]
 
         # Apply styles to header cells for main data table
