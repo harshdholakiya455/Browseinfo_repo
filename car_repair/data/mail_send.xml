@@ -6,7 +6,7 @@
             <field name="model_id" ref="car_repair.model_detail_model" />
             <field name="subject">Quotation for Car Repair: {{ object.company_id.name }}</field>
             <field name="email_to">{{object.email}}</field>
-            <field name="report_template_ids" eval="[(4,ref('car_repair.action_report_car_repair'))]"/>   
+            <field name="report_template_ids" eval="[(4,ref('car_repair.action_report_car'))]"/>   
             <field name="description">Car related mail</field>
             
             <field name="body_html" type="html">

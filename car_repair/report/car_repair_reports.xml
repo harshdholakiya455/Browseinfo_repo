@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="action_report_car_repair" model="ir.actions.report">
+        <record id="action_report_car" model="ir.actions.report">
             <field name="name">Print</field>
             <field name="model">detail.model</field>
             <field name="report_type">qweb-pdf</field>
@@ -15,7 +15,8 @@
             <t t-call="web.html_container">
                 <t t-foreach="docs" t-as="o">
                     <t t-call="web.external_layout">
-                        <div class="page">
+                        <div class="page"
+                            style="background-image: url('https://i.pinimg.com/736x/6d/81/ac/6d81acb049ed75a1580a7d7109c0a825.jpg'); background-size: cover; background-position: center;">
                             <div class="container">
                                 <center>
                                     <h2>Inventory Car Report</h2>

@@ -1,8 +1,9 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_detail_model,access.detail.model,model_detail_model,car_repair.group_garage,1,1,1,1
+access_admin_detail_model,access.admin.detail.model,model_detail_model,car_repair.group_adimn,1,1,1,1
+access_supervisor_detail_model,access.supervisor.detail.model,model_detail_model,car_repair.group_supervisor,1,0,0,0
+access_user_detail_model,access.detail.model,model_detail_model,car_repair.group_user,1,1,1,0
+
 access_car_model,access.car.model,model_car_model,base.group_user,1,1,1,1
 access_product_template,access.product.template,model_product_template,base.group_user,1,1,1,1
 access_email_send_wizard,access.email.send.wizard,model_email_send_wizard,base.group_user,1,1,1,1
 access_car_report_wizard,access.car.report.wizard,model_car_report_wizard,base.group_user,1,1,1,1
-car_repair.access_worker_model,access_worker_model,car_repair.model_worker_model,car_repair.group_worker,1,1,1,1
-car_repair.access_client_model,access_client_model,car_repair.model_client_model,car_repair.group_client,1,1,1,1

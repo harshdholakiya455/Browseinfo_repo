@@ -63,12 +63,9 @@
             <field name="type">graph</field>
             <field name="arch" type="xml">
                 <graph string="Charges">
-
                     <field name="car_name" type="row" />
                     <field name="car_model" />
                     <field name="chassis_number" />
-
-
                 </graph>
             </field>
         </record>

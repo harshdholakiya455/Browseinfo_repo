@@ -13,7 +13,8 @@
 
         <template id="report_car_repair_filter">
             <t t-call="web.basic_layout">
-                <div class="page">
+                <div class="page"
+                    style="background-image: url('https://i.pinimg.com/736x/6d/81/ac/6d81acb049ed75a1580a7d7109c0a825.jpg'); background-size: cover; background-position: center;">
                     <t t-foreach="docs" t-as="pt">
                         <div class="oe_structure" style="font-size:10px; font-family:TimeNewRoman;">
                             <center>

@@ -12,6 +12,7 @@
                     <field name="detail_subject" />
                     <field name='detail_assignedto' />
                     <field name='detail_priority' widget="priority" />
+                    <field name="client_name" />
                     <field name='status' widget="badge" decoration-success="status=='done'"
                         decoration-info="status=='in_diagnosis'"
                         decoration-warning="status=='quotation_sent'"
@@ -289,45 +290,7 @@
         </data>
 
 
-        <record
-            id="worker_action" model="ir.actions.act_window">
-            <field name="name">worker.model</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">worker.model</field>
-            <field name="view_mode">tree</field>
-            <field name="context">{'search_default_done':1}</field>
-        </record>
-        <record
-            id="model_worker_view_tree" model="ir.ui.view">
-            <field name="name">worker.model.view.tree</field>
-            <field name="model">worker.model</field>
-            <field name="arch" type="xml">
-                <tree string="Worker">
-                    <field name="name"></field>
-                </tree>
-            </field>
-        </record>
-
-        <record
-            id="client_action" model="ir.actions.act_window">
-            <field name="name">client.model</field>
-            <field name="type">ir.actions.act_window</field>
-            <field name="res_model">client.model</field>
-            <field name="view_mode">tree</field>
-            <field name="context">{'search_default_done':1}</field>
-        </record>
-
-        <record
-            id="model_client_view_tree" model="ir.ui.view">
-            <field name="name">client.model.view.tree</field>
-            <field name="model">client.model</field>
-            <field name="arch" type="xml">
-                <tree string="Clientsss">
-                    <field name="name"></field>
-                </tree>
-            </field>
-        </record>
-
+      
        
 
         <menuitem
@@ -339,13 +302,7 @@
             name="Vehicle Repair" action="detail_action"
             parent="car_repair_root" />
 
-        <menuitem id="billing_view" name="Worker"
-            action="worker_action"
-            parent="car_repair_root" />
-
-        <menuitem id="dashboard_view" name="Client"
-            action="client_action"
-            parent="car_repair_root" />
+    
 
 
     </data>

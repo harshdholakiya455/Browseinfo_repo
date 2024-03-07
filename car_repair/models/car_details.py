@@ -65,6 +65,8 @@ class Detailsmodel(models.Model):
                     'detail.model') or _('New')
         res = super(Detailsmodel, self).create(vals)
         return res
+    
+
 
     def Create_Car_Diagnosis(self):
         print("Car Diagnosis Create")
@@ -99,20 +101,17 @@ class Detailsmodel(models.Model):
             rec.status = 'done'
 
     def unlink(self):
-        done_records = self.filtered(lambda r: r.status != 'done')
         record = self.filtered(lambda r: r.status == 'done')
-
         if record:
-            if done_records:
-                return super(Detailsmodel, done_records-record).unlink()
-        raise ValidationError("not delete done data")
+            raise ValidationError("not delete done data")
+        return super(Detailsmodel, self-record).unlink()
 
     def action_send_email(self):
         self.ensure_one()
         ir_model_data = self.env['ir.model.data']
         try:
             template_id = ir_model_data._xmlid_lookup(
-                'car_detail.send_mail_car_new')[1]
+                'car_repair.send_mail_car')[1]
         except ValueError:
             template_id = False
         try:
@@ -120,7 +119,7 @@ class Detailsmodel(models.Model):
                 'mail.email_compose_message_wizard_form')[1]
         except ValueError:
             compose_form_id = False
-            template_id = self.env.ref('car_detail.send_mail_car_new')[1]
+            template_id = self.env.ref('car_repair.send_mail_car')[1]
         ctx = {
             'default_model': 'detail.model',
             'default_res_ids': self.ids,
