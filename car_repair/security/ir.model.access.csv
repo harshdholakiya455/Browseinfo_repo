@@ -1,7 +1,7 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_admin_detail_model,access.admin.detail.model,model_detail_model,car_repair.group_adimn,1,1,1,1
 access_supervisor_detail_model,access.supervisor.detail.model,model_detail_model,car_repair.group_supervisor,1,0,0,0
-access_user_detail_model,access.detail.model,model_detail_model,car_repair.group_user,1,1,1,0
+access_user_detail_model,access.user.detail.model,model_detail_model,car_repair.group_user,1,1,1,0
 
 access_car_model,access.car.model,model_car_model,base.group_user,1,1,1,1
 access_product_template,access.product.template,model_product_template,base.group_user,1,1,1,1

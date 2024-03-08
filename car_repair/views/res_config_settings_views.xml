@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.car_repair</field>
+            <field name="model">res.config.settings</field>
+            <field name="priority" eval="90"/>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <app data-string="Car Repair" id="car_repair" string="Car Repair" name="car_repair" groups="car_repair.group_adimn">
+                        <block title="Car Repair" id="car_repair_setting">
+                            <setting string="Show Bool Field Form">
+                                <div class="text-muted content-group mt16">
+                                    <span>check to your record is not Update:</span>
+                                    <field name="show_bool_field" class="text-center" style="width: 10%; min-width: 4rem;" />
+                                </div>
+                            </setting>
+                        </block>
+                    </app>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="car_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'car_repair', 'bin_size': False}</field>
+            <field name="groups_id" eval="[(4, ref('car_repair.group_adimn'))]"/>
+
+        </record>
+
+        <menuitem id="car_config_settings_menu" name="Settings"
+            parent="car_repair_root" sequence="1" action="car_config_settings_action"
+            groups="car_repair.group_adimn"/>
+    </data>
+
+
+    
+</odoo>

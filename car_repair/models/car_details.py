@@ -3,6 +3,7 @@ from odoo .exceptions import ValidationError
 from datetime import datetime, timedelta
 
 
+
 class Detailsmodel(models.Model):
     _name = "detail.model"
     _description = "Car Repair"
@@ -50,6 +51,15 @@ class Detailsmodel(models.Model):
     code = fields.Char(string="Code")
     main_total = fields.Float(
         string="Main Total", compute="_compute_main_total")
+    not_update_bool = fields.Boolean(string="Data is not Update")
+    show_bool_field = fields.Boolean(related='company_id.show_bool_field' )
+
+
+    def write(self, vals):
+        if 'not_update_bool' in vals and vals['not_update_bool']:
+            raise ValidationError("You cannot update now.")
+        return super(Detailsmodel, self).write(vals)
+    
 
     @api.depends('car_info_ids.total')
     def _compute_main_total(self):

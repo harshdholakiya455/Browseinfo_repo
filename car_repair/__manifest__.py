@@ -11,17 +11,15 @@
         'views/car_detail_view.xml',
         'views/car_view.xml',
         'views/product_inherit.xml',
+        'views/res_config_settings_views.xml',
         'data/scheduled_actions.xml',
         'report/car_report_filter.xml',
         'report/car_repair_reports.xml',
         'wizard/send_mail_view.xml',
         'wizard/car_report_wizard.xml',
-        'wizard/custom_invoice.xml',
         'data/mail_send.xml',
         'data/scheduled_mail.xml',
         
-
-
     ],
     'installable': True,
     'application': True,

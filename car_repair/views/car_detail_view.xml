@@ -35,7 +35,7 @@
                             type="object" class="oe_highlight"></button>
                         <button name="Print_Receipt" string="Print Receipt" type="object"></button>
                         <button name="action_send_email" string="Email Send" class="oe_highlight"
-                            type="object"></button>
+                            type="object" groups="car_repair.group_adimn"></button>
 
                         <button name="Print_report" string="Print Report" type="object"></button>
                         <field name="status" widget="statusbar"></field>
@@ -66,8 +66,9 @@
                                 <field name="detail_assignedto" />
                                 <field name="detail_subject" />
                                 <field name="company_id" />
-
-
+                                <field name="show_bool_field" invisible="1" />
+                                <field name="not_update_bool" invisible="show_bool_field == False"
+                                    groups="car_repair.group_adimn" />
                             </group>
                             <group>
                                 <field name='detail_priority' widget="priority" />
@@ -77,7 +78,6 @@
                                 <field name='detail_image' widget="image" class="oe_avatar"
                                     style="float:left" />
                             </group>
-
                         </group>
 
                         <notebook>
@@ -299,10 +299,8 @@
             name="Car Repair" parent="car_repair_root" />
 
         <menuitem id="detail_view_id"
-            name="Vehicle Repair" action="detail_action"
+            name="Vehicle Repair" sequence="0" action="detail_action"
             parent="car_repair_root" />
-
-    
 
 
     </data>
