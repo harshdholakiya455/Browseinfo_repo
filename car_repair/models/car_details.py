@@ -51,17 +51,23 @@ class Detailsmodel(models.Model):
     code = fields.Char(string="Code")
     main_total = fields.Float(
         string="Main Total", compute="_compute_main_total")
-    not_update_bool = fields.Boolean(string="Data is not Update")
+    edit_field = fields.Boolean(string="Edit Data")
     show_bool_field = fields.Boolean(related='company_id.show_bool_field' )
 
-
-    def write(self, vals):
-        if 'not_update_bool' in vals and vals['not_update_bool']:
-            raise ValidationError("You cannot update now.")
-        return super(Detailsmodel, self).write(vals)
     
+    def write(self, vals):
+        show_bool_field = vals.get('show_bool_field', self.show_bool_field)
+        edit_field = vals.get('edit_field', self.edit_field)
 
-    @api.depends('car_info_ids.total')
+        if show_bool_field:  
+            if 'edit_field' in vals:
+                edit_field = vals['edit_field']
+
+            if  edit_field:  
+                restricted_fields = [field for field in vals if field != 'edit_field']
+                if restricted_fields:
+                    raise ValidationError("Changes are not allowed when Edit Field is checked")
+        return super(Detailsmodel, self).write(vals)
     def _compute_main_total(self):
         for record in self:
             total = sum(record.car_info_ids.mapped('total'))

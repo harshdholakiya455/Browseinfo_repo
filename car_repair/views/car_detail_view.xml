@@ -67,8 +67,7 @@
                                 <field name="detail_subject" />
                                 <field name="company_id" />
                                 <field name="show_bool_field" invisible="1" />
-                                <field name="not_update_bool" invisible="show_bool_field == False"
-                                    groups="car_repair.group_adimn" />
+                                <field name="edit_field" invisible="show_bool_field == False" />
                             </group>
                             <group>
                                 <field name='detail_priority' widget="priority" />
