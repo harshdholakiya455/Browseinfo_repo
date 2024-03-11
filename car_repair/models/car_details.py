@@ -68,6 +68,7 @@ class Detailsmodel(models.Model):
                 if restricted_fields:
                     raise ValidationError("Changes are not allowed when Edit Field is checked")
         return super(Detailsmodel, self).write(vals)
+    
     def _compute_main_total(self):
         for record in self:
             total = sum(record.car_info_ids.mapped('total'))
