@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
-        <!-- Define a new mail template for the reminder -->
         <record id="send_mail_car_schedule" model="mail.template">
             <field name="name">Car Repair Reminder</field>
             <field name="model_id" ref="model_detail_model"/>

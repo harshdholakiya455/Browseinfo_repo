@@ -31,10 +31,10 @@
                                     <tbody>
                                         <tr>
                                             <td class="text-center">
-                                                <t t-esc="o.start_date" />
+                                                <t t-esc="o.start_date.strftime('%d-%m-%Y')" />
                                             </td>
                                             <td class="text-center">
-                                                <t t-esc="o.end_date" />
+                                                <t t-esc="o.end_date.strftime('%d-%m-%Y')" />
                                             </td>
                                         </tr>
                                     </tbody>

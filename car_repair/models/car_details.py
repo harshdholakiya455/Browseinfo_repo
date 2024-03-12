@@ -1,10 +1,7 @@
 from odoo import models, fields, api, _
 from odoo .exceptions import ValidationError
 from datetime import datetime, timedelta
-
-
-
-class Detailsmodel(models.Model):
+class DetailsModel(models.Model):
     _name = "detail.model"
     _description = "Car Repair"
     _rec_name = "client_name"
@@ -15,7 +12,7 @@ class Detailsmodel(models.Model):
     detail_id = fields.Char(string="Id", readonly=True,
                             default=lambda self: _('New'))
     company_id = fields.Many2one(
-        'res.company', default=lambda self: self.env.company)
+        'res.company', default=lambda self: self.env.company , readonly=True)
     other_record_id = fields.Many2one('res.company', check_company=True)
     detail_subject = fields.Char(string="Subject")
     detail_assignedto = fields.Char(string="Assigned To")
@@ -67,7 +64,7 @@ class Detailsmodel(models.Model):
                 restricted_fields = [field for field in vals if field != 'edit_field']
                 if restricted_fields:
                     raise ValidationError("Changes are not allowed when Edit Field is checked")
-        return super(Detailsmodel, self).write(vals)
+        return super(DetailsModel, self).write(vals)
     
     def _compute_main_total(self):
         for record in self:
@@ -80,7 +77,7 @@ class Detailsmodel(models.Model):
             if vals.get('detail_id', _('New')) == _('New'):
                 vals['detail_id'] = self.env['ir.sequence'].next_by_code(
                     'detail.model') or _('New')
-        res = super(Detailsmodel, self).create(vals)
+        res = super(DetailsModel, self).create(vals)
         return res
     
 
@@ -121,7 +118,7 @@ class Detailsmodel(models.Model):
         record = self.filtered(lambda r: r.status == 'done')
         if record:
             raise ValidationError("not delete done data")
-        return super(Detailsmodel, self-record).unlink()
+        return super(DetailsModel, self-record).unlink()
 
     def action_send_email(self):
         self.ensure_one()

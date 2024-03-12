@@ -1,7 +1,7 @@
 from odoo import models, fields, api
 
 
-class car_info(models.Model):
+class CarInfo(models.Model):
     _name = "car.model"
     _description = "car info"
     _rec_name = "car_name"

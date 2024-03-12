@@ -10,8 +10,4 @@ class EmailSendMessageWizard(models.TransientModel):
     message = fields.Char()
     
 
-class Custom_invoice(models.TransientModel):
-    _inherit = "account.move.send"
-
-    payment_status = fields.Boolean(string="Payment Pdf")
  

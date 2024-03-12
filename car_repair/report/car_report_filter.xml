@@ -28,12 +28,16 @@
                                     </tr>
                                     <tr style="height:20px;text-align:center;">
                                         <td>
-                                            <span t-if="pt.start_date" t-field="pt.start_date" />
-                                            <span t-if="not pt.start_date">N/A</span>
+                                            <t t-if="pt.start_date">
+                                                <t t-esc="pt.start_date.strftime('%d-%m-%Y')" />
+                                            </t>
+                                            <t t-if="not pt.start_date">N/A</t>
                                         </td>
                                         <td>
-                                            <span t-if="pt.end_date" t-field="pt.end_date" />
-                                            <span t-if="not pt.end_date">N/A</span>
+                                            <t t-if="pt.end_date">
+                                                <t t-esc="pt.end_date.strftime('%d-%m-%Y')" />
+                                            </t>
+                                            <t t-if="not pt.end_date">N/A</t>
                                         </td>
                                     </tr>
                                 </table>
